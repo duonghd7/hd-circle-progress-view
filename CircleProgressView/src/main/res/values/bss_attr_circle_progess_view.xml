@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircleProgressView">
+        <attr name="cpvStartAngle"      format="float"/>
+        <attr name="cpvSweepAngle"      format="float"/>
+        <attr name="cpvRectFLeft"       format="dimension"/>
+        <attr name="cpvRectFTop"        format="dimension"/>
+        <attr name="cpvRectFRight"      format="dimension"/>
+        <attr name="cpvRectFBottom"     format="dimension"/>
+        <attr name="cpvBackground"      format="string"/>
+        <attr name="cpvProgressColor"   format="string"/>
+        <attr name="cpvTotalTime"       format="integer"/>
+    </declare-styleable>
+</resources>
