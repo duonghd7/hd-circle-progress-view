@@ -7,6 +7,26 @@
 ## GIF
 ![giphy1](https://user-images.githubusercontent.com/18477507/35432782-bc12913c-02b3-11e8-9b4c-bbd8d1fdb2b6.gif) ![giphy2](https://user-images.githubusercontent.com/18477507/35432808-d3a5411e-02b3-11e8-929d-cc9ad49ba3e3.gif)
 
+## Installation
+- Step 1. Add the JitPack repository to your build file <br>
+`Add it in your root build.gradle at the end of repositories:`
+```java
+    allprojects {
+        repositories {
+            ...
+            maven { url 'https://jitpack.io' }
+        }
+    }
+```
+
+- Step 2. Add the dependency with version `0.0.2`
+```java
+    dependencies {
+          ...
+          compile 'com.github.duonghd7:hd-circle-progress-view:0.0.2'
+    }
+```
+
 ## Options
 <kbd>![image](https://user-images.githubusercontent.com/18477507/35434900-5bf65a56-02bb-11e8-95a0-cdcf3310fb49.png)</kbd>
 ![image](https://user-images.githubusercontent.com/18477507/35433473-1f140c6e-02b6-11e8-9897-75cd09a905d1.png)<br>
