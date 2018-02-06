@@ -8,6 +8,7 @@ import android.graphics.PorterDuff;
 import android.os.CountDownTimer;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 /**
@@ -19,7 +20,9 @@ import android.widget.RelativeLayout;
 @SuppressLint("DrawAllocation,Recycle")
 public class CircleProgressView extends RelativeLayout implements CircleProgressInterface {
     private static final String TAG = CircleProgressView.class.getSimpleName();
+    private RelativeLayout rlRoot;
     private CircleProgress circleProgress;
+    private View viewBackground;
     
     private float cpvRectFLeft;
     private float cpvRectFTop;
@@ -64,7 +67,10 @@ public class CircleProgressView extends RelativeLayout implements CircleProgress
     public CircleProgressView(final Context context, final AttributeSet attrs) {
         super(context, attrs);
         inflate(getContext(), R.layout.view_circle_progress, this);
+        rlRoot = findViewById(R.id.view_circle_progress_rl_root);
         circleProgress = findViewById(R.id.view_circle_progress_cp_circle_progress);
+        viewBackground = findViewById(R.id.view_circle_progress_v_background);
+        
         a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CircleProgressView, 0, 0);
         cpvBackground = a.getString(R.styleable.CircleProgressView_cpvBackground);
         cpvProgressColor = a.getString(R.styleable.CircleProgressView_cpvProgressColor);
@@ -81,8 +87,8 @@ public class CircleProgressView extends RelativeLayout implements CircleProgress
     }
     
     private void initData() {
-        circleProgress.getLayoutParams().width = cpvSize;
-        circleProgress.getLayoutParams().height = cpvSize;
+        rlRoot.getLayoutParams().width = cpvSize;
+        rlRoot.getLayoutParams().height = cpvSize;
         
         cpvRectFLeft = a.getDimension(R.styleable.CircleProgressView_cpvRectFLeft, 0);
         cpvRectFTop = a.getDimension(R.styleable.CircleProgressView_cpvRectFTop, 0);
@@ -107,7 +113,7 @@ public class CircleProgressView extends RelativeLayout implements CircleProgress
             }
         }
         
-        circleProgress.getBackground().setColorFilter(backgroundColor, PorterDuff.Mode.SRC);
+        viewBackground.getBackground().setColorFilter(backgroundColor, PorterDuff.Mode.SRC);
         
         circleProgress.initProgress(cpvRectFLeft, cpvRectFTop, cpvRectFRight, cpvRectFBottom,
                 cpvStartAngle, cpvSweepAngle, progressColor);

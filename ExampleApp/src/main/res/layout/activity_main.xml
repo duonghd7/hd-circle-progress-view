@@ -15,8 +15,8 @@
         android:layout_marginTop="50dp"
         android:layout_weight="1"
         android:gravity="center"
-        app:cpvBackground="#b0b3d7"
-        app:cpvProgressColor="#1b2259"
+        app:cpvBackground="#ce001e"
+        app:cpvProgressColor="#f4f4f4"
         app:cpvSweepAngle="90"/>
 
     <LinearLayout
