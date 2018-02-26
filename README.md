@@ -30,7 +30,7 @@
 ## Options
 ![image](https://user-images.githubusercontent.com/18477507/36661723-b2b7c67a-1b0e-11e8-80f7-b234a278b80b.png)
 <kbd>![image](https://user-images.githubusercontent.com/18477507/36661238-5d9e13de-1b0d-11e8-9a60-2767ab842bff.png)</kbd>
-![image](https://user-images.githubusercontent.com/18477507/36662428-fa710588-1b10-11e8-8616-c2e5ac094015.png)<br>
+![image](https://user-images.githubusercontent.com/18477507/36662428-fa710588-1b10-11e8-8616-c2e5ac094015.png)<br><br>
 **`.setTotalTime(int cpvTotalTime)`** <br>
 **`.setTotalTime(int cpvTotalTime, CircleProgressTime circleProgressTime)`** <br>
 
