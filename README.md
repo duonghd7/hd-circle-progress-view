@@ -5,7 +5,7 @@
 **`CircleProgressView`** is support for countdown process or show up process to view with util time through function **`OnPlayListener()`**
 
 ## GIF
-![giphy1](https://user-images.githubusercontent.com/18477507/35432782-bc12913c-02b3-11e8-9b4c-bbd8d1fdb2b6.gif) ![giphy2](https://user-images.githubusercontent.com/18477507/35432808-d3a5411e-02b3-11e8-929d-cc9ad49ba3e3.gif) ![giphy4](https://user-images.githubusercontent.com/18477507/35847158-001ed8fe-0b4c-11e8-906e-a87ccfca444e.gif)
+![1](https://user-images.githubusercontent.com/18477507/36660672-94db9d82-1b0b-11e8-8710-56f863d69944.gif) ![2](https://user-images.githubusercontent.com/18477507/36660712-b6a612e4-1b0b-11e8-9f6f-049f0bfb7a75.gif) ![3](https://user-images.githubusercontent.com/18477507/36660734-c8234f00-1b0b-11e8-841e-635bbd3519ed.gif)
 
 ## Installation
 - Step 1. Add the JitPack repository to your build file <br>
@@ -19,17 +19,18 @@
     }
 ```
 
-- Step 2. Add the dependency with version `0.0.3`
+- Step 2. Add the dependency with version `0.0.4`
 ```java
     dependencies {
           ...
-          compile 'com.github.duonghd7:hd-circle-progress-view:0.0.3'
+          compile 'com.github.duonghd7:hd-circle-progress-view:0.0.4'
     }
 ```
 
 ## Options
-<kbd>![image](https://user-images.githubusercontent.com/18477507/35434900-5bf65a56-02bb-11e8-95a0-cdcf3310fb49.png)</kbd>
-![image](https://user-images.githubusercontent.com/18477507/35433473-1f140c6e-02b6-11e8-9897-75cd09a905d1.png)<br>
+![image](https://user-images.githubusercontent.com/18477507/36661723-b2b7c67a-1b0e-11e8-80f7-b234a278b80b.png)
+<kbd>![image](https://user-images.githubusercontent.com/18477507/36661238-5d9e13de-1b0d-11e8-9a60-2767ab842bff.png)</kbd>
+![image](https://user-images.githubusercontent.com/18477507/36662428-fa710588-1b10-11e8-8616-c2e5ac094015.png)<br>
 **`.setTotalTime(int cpvTotalTime)`** <br>
 **`.setTotalTime(int cpvTotalTime, CircleProgressTime circleProgressTime)`** <br>
 
