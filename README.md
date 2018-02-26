@@ -5,7 +5,7 @@
 **`CircleProgressView`** is support for countdown process or show up process to view with util time through function **`OnPlayListener()`**
 
 ## GIF
-![giphy1](https://user-images.githubusercontent.com/18477507/35432782-bc12913c-02b3-11e8-9b4c-bbd8d1fdb2b6.gif) ![giphy2](https://user-images.githubusercontent.com/18477507/35432808-d3a5411e-02b3-11e8-929d-cc9ad49ba3e3.gif)
+![giphy1](https://user-images.githubusercontent.com/18477507/35432782-bc12913c-02b3-11e8-9b4c-bbd8d1fdb2b6.gif) ![giphy2](https://user-images.githubusercontent.com/18477507/35432808-d3a5411e-02b3-11e8-929d-cc9ad49ba3e3.gif) ![giphy4](https://user-images.githubusercontent.com/18477507/35847158-001ed8fe-0b4c-11e8-906e-a87ccfca444e.gif)
 
 ## Installation
 - Step 1. Add the JitPack repository to your build file <br>
@@ -19,11 +19,11 @@
     }
 ```
 
-- Step 2. Add the dependency with version `0.0.2`
+- Step 2. Add the dependency with version `0.0.3`
 ```java
     dependencies {
           ...
-          compile 'com.github.duonghd7:hd-circle-progress-view:0.0.2'
+          compile 'com.github.duonghd7:hd-circle-progress-view:0.0.3'
     }
 ```
 
