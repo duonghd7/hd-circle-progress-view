@@ -3,12 +3,13 @@
     <declare-styleable name="CircleProgressView">
         <attr name="cpvStartAngle"      format="float"/>
         <attr name="cpvSweepAngle"      format="float"/>
-        <attr name="cpvRectFLeft"       format="dimension"/>
-        <attr name="cpvRectFTop"        format="dimension"/>
-        <attr name="cpvRectFRight"      format="dimension"/>
-        <attr name="cpvRectFBottom"     format="dimension"/>
+        <attr name="cpvStrokeWidth"     format="dimension"/>
+        <attr name="cpvMode"            format="enum">
+            <enum name="cpvFill"        value="0"/>
+            <enum name="cpvStrokeButt"  value="1"/>
+            <enum name="cpvStrokeRound" value="2"/>
+        </attr>
         <attr name="cpvBackground"      format="string"/>
         <attr name="cpvProgressColor"   format="string"/>
-        <attr name="cpvTotalTime"       format="integer"/>
     </declare-styleable>
 </resources>

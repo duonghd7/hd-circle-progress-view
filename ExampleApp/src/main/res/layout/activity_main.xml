@@ -2,10 +2,12 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix,KeyboardInaccessibleWidget,ContentDescription,HardcodedText,SpUsage,RtlHardcoded,RelativeOverlap,UselessParent">
 
     <com.hdd.circleprogressview.CircleProgressView
         android:id="@+id/activity_main_cpv_circle_progress"
@@ -15,8 +17,10 @@
         android:layout_marginTop="50dp"
         android:layout_weight="1"
         android:gravity="center"
-        app:cpvBackground="#ce001e"
-        app:cpvProgressColor="#f4f4f4"
+        app:cpvBackground="#ced5ff"
+        app:cpvMode="cpvStrokeRound"
+        app:cpvProgressColor="#de0000"
+        app:cpvStrokeWidth="8dp"
         app:cpvSweepAngle="90"/>
 
     <LinearLayout

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.os.CountDownTimer;
 import android.util.AttributeSet;
@@ -24,12 +25,10 @@ public class CircleProgressView extends RelativeLayout implements CircleProgress
     private CircleProgress circleProgress;
     private View viewBackground;
     
-    private float cpvRectFLeft;
-    private float cpvRectFTop;
-    private float cpvRectFRight;
-    private float cpvRectFBottom;
     private float cpvStartAngle;
     private float cpvSweepAngle;
+    private int cpvStrokeWidth;
+    
     private boolean isSetStartAngle = false;
     private boolean isSetSweepAngle = false;
     private String cpvBackground;
@@ -38,7 +37,7 @@ public class CircleProgressView extends RelativeLayout implements CircleProgress
     private int progressColor;
     private int backgroundColor;
     private int cpvSize;
-    private TypedArray a;
+    private TypedArray typedArray;
     
     private CountDownTimer countDownTimer;
     private int countDownTime;
@@ -47,6 +46,11 @@ public class CircleProgressView extends RelativeLayout implements CircleProgress
     private boolean isRun = false;
     private long lastMillisUntil;
     private long sumErrorNumber;
+    
+    private boolean useCenter;
+    private float painStrokeWidth;
+    private Paint.Cap painCap;
+    private Paint.Style painStyle;
     
     private CircleProgressView.OnPlayListener onPlayListener = new CircleProgressView.OnPlayListener() {
         @Override
@@ -71,17 +75,34 @@ public class CircleProgressView extends RelativeLayout implements CircleProgress
         circleProgress = findViewById(R.id.view_circle_progress_cp_circle_progress);
         viewBackground = findViewById(R.id.view_circle_progress_v_background);
         
-        a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CircleProgressView, 0, 0);
-        cpvBackground = a.getString(R.styleable.CircleProgressView_cpvBackground);
-        cpvProgressColor = a.getString(R.styleable.CircleProgressView_cpvProgressColor);
-        cpvTotalTime = a.getInteger(R.styleable.CircleProgressView_cpvTotalTime, 30 * 1000);    //default = 30 second
+        typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CircleProgressView, 0, 0);
+        cpvBackground = typedArray.getString(R.styleable.CircleProgressView_cpvBackground);
+        cpvProgressColor = typedArray.getString(R.styleable.CircleProgressView_cpvProgressColor);
+        cpvStrokeWidth = typedArray.getDimensionPixelSize(R.styleable.CircleProgressView_cpvStrokeWidth, 20);
+        int cpvMode = typedArray.getInteger(R.styleable.CircleProgressView_cpvMode, 0);
+        if (cpvMode == 0) {
+            useCenter = true;
+            painStrokeWidth = 0f;
+            painCap = Paint.Cap.BUTT;
+            painStyle = Paint.Style.FILL;
+        } else if (cpvMode == 1) {
+            useCenter = false;
+            painStrokeWidth = cpvStrokeWidth;
+            painCap = Paint.Cap.BUTT;
+            painStyle = Paint.Style.STROKE;
+        } else if (cpvMode == 2) {
+            useCenter = false;
+            painStrokeWidth = cpvStrokeWidth;
+            painCap = Paint.Cap.ROUND;
+            painStyle = Paint.Style.STROKE;
+        }
     }
     
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
-        cpvSize = width < height ? width : height;
+        cpvSize = Math.min(width, height);
         initData();
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
@@ -90,12 +111,8 @@ public class CircleProgressView extends RelativeLayout implements CircleProgress
         rlRoot.getLayoutParams().width = cpvSize;
         rlRoot.getLayoutParams().height = cpvSize;
         
-        cpvRectFLeft = a.getDimension(R.styleable.CircleProgressView_cpvRectFLeft, 0);
-        cpvRectFTop = a.getDimension(R.styleable.CircleProgressView_cpvRectFTop, 0);
-        cpvRectFRight = a.getDimension(R.styleable.CircleProgressView_cpvRectFRight, (float) cpvSize);
-        cpvRectFBottom = a.getDimension(R.styleable.CircleProgressView_cpvRectFBottom, (float) cpvSize);
-        cpvStartAngle = isSetStartAngle ? cpvStartAngle : a.getFloat(R.styleable.CircleProgressView_cpvStartAngle, -90);
-        cpvSweepAngle = isSetSweepAngle ? cpvSweepAngle : a.getFloat(R.styleable.CircleProgressView_cpvSweepAngle, 0);
+        cpvStartAngle = isSetStartAngle ? cpvStartAngle : typedArray.getFloat(R.styleable.CircleProgressView_cpvStartAngle, -90);
+        cpvSweepAngle = isSetSweepAngle ? cpvSweepAngle : typedArray.getFloat(R.styleable.CircleProgressView_cpvSweepAngle, 0);
         progressColor = getContext().getResources().getColor(R.color.colorPrimary);
         backgroundColor = getContext().getResources().getColor(R.color.colorWhite);
         if (cpvProgressColor != null) {
@@ -114,9 +131,8 @@ public class CircleProgressView extends RelativeLayout implements CircleProgress
         }
         
         viewBackground.getBackground().setColorFilter(backgroundColor, PorterDuff.Mode.SRC);
-        
-        circleProgress.initProgress(cpvRectFLeft, cpvRectFTop, cpvRectFRight, cpvRectFBottom,
-                cpvStartAngle, cpvSweepAngle, progressColor);
+        circleProgress.initProgress(cpvSize, cpvStartAngle, cpvSweepAngle,
+                progressColor, useCenter, painStrokeWidth, painCap, painStyle);
     }
     
     private void initTime() {

@@ -17,14 +17,15 @@ import android.view.View;
 @SuppressLint("DrawAllocation,Recycle")
 public class CircleProgress extends View {
     private static final String TAG = CircleProgress.class.getSimpleName();
-    
     private Paint drawPaint;
-    private float cpvRectFLeft;
-    private float cpvRectFTop;
-    private float cpvRectFRight;
-    private float cpvRectFBottom;
+    private float cpvSize;
     private float cpvStartAngle;
     private float cpvSweepAngle;
+    
+    private boolean useCenter;
+    private float painStrokeWidth;
+    private Paint.Cap painCap;
+    private Paint.Style painStyle;
     
     public CircleProgress(Context context) {
         this(context, null);
@@ -34,21 +35,30 @@ public class CircleProgress extends View {
         super(context, attrs);
     }
     
-    @Override
-    protected void onDraw(final Canvas canvas) {
-        RectF rectF = new RectF(cpvRectFLeft, cpvRectFTop, cpvRectFRight, cpvRectFBottom);
-        canvas.drawArc(rectF, cpvStartAngle, cpvSweepAngle, true, drawPaint);
+    public CircleProgress(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
     }
     
-    public void initProgress(float cpvRectFLeft, float cpvRectFTop, float cpvRectFRight, float cpvRectFBottom,
-                             float cpvStartAngle, float cpvSweepAngle, int progressColor) {
-        
-        this.cpvRectFLeft = cpvRectFLeft;
-        this.cpvRectFTop = cpvRectFTop;
-        this.cpvRectFRight = cpvRectFRight;
-        this.cpvRectFBottom = cpvRectFBottom;
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        float pad = painStrokeWidth / 2f;
+        RectF outerOval = new RectF(pad, pad, cpvSize - pad, cpvSize - pad);
+        drawPaint.setStrokeWidth(painStrokeWidth);
+        drawPaint.setStrokeCap(painCap);
+        drawPaint.setStyle(painStyle);
+        canvas.drawArc(outerOval, cpvStartAngle, cpvSweepAngle, useCenter, drawPaint);
+    }
+    
+    public void initProgress(float cpvSize, float cpvStartAngle, float cpvSweepAngle, int progressColor,
+                             boolean useCenter, float painStrokeWidth, Paint.Cap painCap, Paint.Style painStyle) {
+        this.cpvSize = cpvSize;
         this.cpvStartAngle = cpvStartAngle;
         this.cpvSweepAngle = cpvSweepAngle;
+        this.useCenter = useCenter;
+        this.painStrokeWidth = painStrokeWidth;
+        this.painCap = painCap;
+        this.painStyle = painStyle;
         
         try {
             drawPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
