@@ -79,6 +79,7 @@ public class CircleProgressView extends RelativeLayout implements CircleProgress
         cpvBackground = typedArray.getString(R.styleable.CircleProgressView_cpvBackground);
         cpvProgressColor = typedArray.getString(R.styleable.CircleProgressView_cpvProgressColor);
         cpvStrokeWidth = typedArray.getDimensionPixelSize(R.styleable.CircleProgressView_cpvStrokeWidth, 20);
+        cpvTotalTime = 30 * 1000;    //default = 30 second
         int cpvMode = typedArray.getInteger(R.styleable.CircleProgressView_cpvMode, 0);
         if (cpvMode == 0) {
             useCenter = true;
