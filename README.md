@@ -19,11 +19,11 @@
     }
 ```
 
-- Step 2. Add the dependency with version `0.0.4`
+- Step 2. Add the dependency with version `0.0.5`
 ```java
     dependencies {
           ...
-          compile 'com.github.duonghd7:hd-circle-progress-view:0.0.4'
+          implementation 'com.github.duonghd7:hd-circle-progress-view:0.0.5'
     }
 ```
 
