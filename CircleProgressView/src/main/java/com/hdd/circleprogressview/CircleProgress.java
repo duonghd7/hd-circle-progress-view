@@ -21,24 +21,24 @@ public class CircleProgress extends View {
     private float cpvSize;
     private float cpvStartAngle;
     private float cpvSweepAngle;
-    
+
     private boolean useCenter;
     private float painStrokeWidth;
     private Paint.Cap painCap;
     private Paint.Style painStyle;
-    
+
     public CircleProgress(Context context) {
         this(context, null);
     }
-    
+
     public CircleProgress(Context context, final AttributeSet attrs) {
         super(context, attrs);
     }
-    
+
     public CircleProgress(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
-    
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -49,7 +49,7 @@ public class CircleProgress extends View {
         drawPaint.setStyle(painStyle);
         canvas.drawArc(outerOval, cpvStartAngle, cpvSweepAngle, useCenter, drawPaint);
     }
-    
+
     public void initProgress(float cpvSize, float cpvStartAngle, float cpvSweepAngle, int progressColor,
                              boolean useCenter, float painStrokeWidth, Paint.Cap painCap, Paint.Style painStyle) {
         this.cpvSize = cpvSize;
@@ -59,7 +59,7 @@ public class CircleProgress extends View {
         this.painStrokeWidth = painStrokeWidth;
         this.painCap = painCap;
         this.painStyle = painStyle;
-        
+
         try {
             drawPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             drawPaint.setColor(progressColor);
@@ -68,12 +68,12 @@ public class CircleProgress extends View {
             Log.e(TAG, e.getMessage());
         }
     }
-    
+
     public void updateStart(float cpvStartAngle) {
         this.cpvStartAngle = cpvStartAngle;
         invalidate();
     }
-    
+
     public void updateSweep(float cpvSweepAngle) {
         this.cpvSweepAngle = cpvSweepAngle;
         invalidate();
