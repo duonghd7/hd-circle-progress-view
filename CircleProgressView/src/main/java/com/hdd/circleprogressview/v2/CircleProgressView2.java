@@ -60,7 +60,6 @@ public class CircleProgressView2 extends RelativeLayout implements CircleProgres
     private CountDownTimer countDownTimer;
     private int countDownTime;
     private int countDownInterval;
-    private int mainTime;
     private boolean isRun = false;
     private long lastMillisUntil;
     private long sumErrorNumber;
@@ -302,6 +301,14 @@ public class CircleProgressView2 extends RelativeLayout implements CircleProgres
     @Override
     public CircleProgressView2 setMode(CircleProgressMode circleProgressMode) {
         cpvMode = circleProgressMode.label;
+        if (circleProgressSecond != null) {
+            if (cpvMode == CircleProgressMode.STROKE_BUTT_2.label) {
+                circleProgressSecond.setVisibility(VISIBLE);
+            } else {
+                circleProgressSecond.setVisibility(GONE);
+            }
+        }
+
         return this;
     }
 
@@ -311,7 +318,7 @@ public class CircleProgressView2 extends RelativeLayout implements CircleProgres
             countDownTimer.cancel();
             isRun = false;
         }
-        mainTime = cpvTotalTime;
+
         countDownTime = cpvTotalTime;
         initTime();
         countDownTimer.start();
@@ -331,8 +338,8 @@ public class CircleProgressView2 extends RelativeLayout implements CircleProgres
     @Override
     public CircleProgressView2 cpvResume() {
         if (!isRun) {
-            mainTime = (int) (cpvSweepAngle * cpvTotalTime / 360f);
-            countDownTime = mainTime;
+            countDownTime = (int) (cpvSweepAngle * cpvTotalTime / 360f);
+
             initTime();
             countDownTimer.start();
             isRun = true;
@@ -349,22 +356,20 @@ public class CircleProgressView2 extends RelativeLayout implements CircleProgres
             countDownTimer = new CountDownTimer(countDownTime + timeAdd, countDownInterval - 1) {
                 public void onTick(long millisUntilFinished) {
                     sumErrorNumber += (lastMillisUntil - millisUntilFinished);
-                    mainTime = (int) (millisUntilFinished + sumErrorNumber - timeAdd);
+                    countDownTime = (int) (millisUntilFinished + sumErrorNumber - timeAdd);
                     lastMillisUntil = millisUntilFinished - countDownInterval;
 
-                    if (mainTime > 0) {
-                        cpvSweepAngle = mainTime * 360f / cpvTotalTime;
+                    if (countDownTime > 0) {
+                        cpvSweepAngle = countDownTime * 360f / cpvTotalTime;
                         updateSweepAngle();
-                        if (onPlayListener != null) {
-                            onPlayListener.onPlay(mainTime);
-                        }
+                        if (onPlayListener != null) onPlayListener.onPlay(countDownTime);
                     } else {
                         cpvSweepAngle = 0;
                         updateSweepAngle();
                         countDownTimer.cancel();
                         isRun = false;
                         if (onPlayListener != null) {
-                            onPlayListener.onPlay(mainTime);
+                            onPlayListener.onPlay(countDownTime);
                             onPlayListener.onFinish();
                         }
                     }

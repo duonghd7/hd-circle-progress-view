@@ -3,7 +3,6 @@ package com.hdd.example.circleprogressview;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +12,8 @@ import com.hdd.circleprogressview.v2.CircleProgressView2;
 public class MainActivity extends AppCompatActivity {
     private CircleProgressView2 circleProgress;
     private TextView tvMomentTime;
+
+    private int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         circleProgress.setTotalTime(10, CircleProgressTime.SECOND)
                 .setCountDownInterval(20, CircleProgressTime.MILLI_SECOND)
+                .setMode(CircleProgressView2.CircleProgressMode.STROKE_BUTT_2)
                 .setOnPlayListener(new CircleProgressView2.OnPlayListener() {
                     @Override
                     public void onPlay(int momentTime) {
@@ -39,7 +41,11 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFinish() {
-                        Toast.makeText(MainActivity.this, "Done!", Toast.LENGTH_SHORT).show();
+                        circleProgress.setTotalTime(10, CircleProgressTime.SECOND)
+                                .setCountDownInterval(20, CircleProgressTime.MILLI_SECOND)
+                                .setMode(i % 2 == 0 ? CircleProgressView2.CircleProgressMode.STROKE_BUTT_1 : CircleProgressView2.CircleProgressMode.STROKE_BUTT_2);
+                        i++;
+                        circleProgress.cpvStart();
                     }
                 });
 
