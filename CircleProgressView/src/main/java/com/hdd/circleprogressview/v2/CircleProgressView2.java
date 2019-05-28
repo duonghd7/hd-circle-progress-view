@@ -361,11 +361,12 @@ public class CircleProgressView2 extends RelativeLayout implements CircleProgres
                     } else {
                         cpvSweepAngle = 0;
                         updateSweepAngle();
+                        countDownTimer.cancel();
+                        isRun = false;
                         if (onPlayListener != null) {
                             onPlayListener.onPlay(mainTime);
                             onPlayListener.onFinish();
                         }
-                        countDownTimer.cancel();
                     }
                 }
 
