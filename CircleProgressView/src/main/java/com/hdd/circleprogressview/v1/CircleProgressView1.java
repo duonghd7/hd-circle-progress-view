@@ -1,17 +1,23 @@
-package com.hdd.circleprogressview;
+package com.hdd.circleprogressview.v1;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.graphics.RectF;
 import android.os.CountDownTimer;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+
+import com.hdd.circleprogressview.R;
+import com.hdd.circleprogressview.utils.CircleProgressTime;
+import com.hdd.circleprogressview.utils.LibUtils;
 
 /**
  * Created on 1/23/2018.
@@ -20,8 +26,8 @@ import android.widget.RelativeLayout;
  */
 
 @SuppressLint("DrawAllocation,Recycle")
-public class CircleProgressView extends RelativeLayout implements CircleProgressInterface {
-    private static final String TAG = CircleProgressView.class.getSimpleName();
+public class CircleProgressView1 extends RelativeLayout implements CircleProgressInterface1 {
+    private static final String TAG = CircleProgressView1.class.getSimpleName();
     private FrameLayout flRoot;
     private CircleProgress circleProgress;
     private View viewBackground;
@@ -53,18 +59,31 @@ public class CircleProgressView extends RelativeLayout implements CircleProgress
     private Paint.Cap painCap;
     private Paint.Style painStyle;
 
-    private CircleProgressView.OnPlayListener onPlayListener;
+    private CircleProgressView1.OnPlayListener onPlayListener;
 
-    public CircleProgressView(Context context) {
+    public CircleProgressView1(Context context) {
         this(context, null);
     }
 
-    public CircleProgressView(final Context context, final AttributeSet attrs) {
+    public CircleProgressView1(final Context context, final AttributeSet attrs) {
         super(context, attrs);
-        inflate(getContext(), R.layout.view_circle_progress, this);
-        flRoot = findViewById(R.id.view_circle_progress_fl_root);
-        circleProgress = findViewById(R.id.view_circle_progress_cp_circle_progress);
-        viewBackground = findViewById(R.id.view_circle_progress_v_background);
+        final int size03 = LibUtils.dpToPx(context, 0.6f);
+        this.addView(flRoot = new FrameLayout(context));
+
+        RelativeLayout.LayoutParams vLayoutParam = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        vLayoutParam.setMargins(size03, size03, size03, size03);
+        viewBackground = new View(context);
+        viewBackground.setBackground(context.getResources().getDrawable(R.drawable.bg_circle_background));
+        viewBackground.setLayoutParams(vLayoutParam);
+
+        FrameLayout.LayoutParams cpLayoutParam = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        circleProgress = new CircleProgress(context);
+        circleProgress.setLayoutParams(cpLayoutParam);
+        circleProgress.setBackground(context.getResources().getDrawable(R.drawable.bg_circle_background));
+
+        flRoot.removeAllViews();
+        flRoot.addView(viewBackground);
+        flRoot.addView(circleProgress);
 
         typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CircleProgressView, 0, 0);
         cpvBackground = typedArray.getString(R.styleable.CircleProgressView_cpvBackground);
@@ -172,12 +191,12 @@ public class CircleProgressView extends RelativeLayout implements CircleProgress
      * default is millisecond
      * */
     @Override
-    public CircleProgressView setTotalTime(int cpvTotalTime) {
+    public CircleProgressView1 setTotalTime(int cpvTotalTime) {
         return setTotalTime(cpvTotalTime, CircleProgressTime.MILLI_SECOND);
     }
 
     @Override
-    public CircleProgressView setTotalTime(int cpvTotalTime, CircleProgressTime circleProgressTime) {
+    public CircleProgressView1 setTotalTime(int cpvTotalTime, CircleProgressTime circleProgressTime) {
         switch (circleProgressTime) {
             case SECOND:
                 this.cpvTotalTime = cpvTotalTime * 1000;
@@ -190,12 +209,12 @@ public class CircleProgressView extends RelativeLayout implements CircleProgress
     }
 
     @Override
-    public CircleProgressView setCountDownInterval(int countDownInterval) {
+    public CircleProgressView1 setCountDownInterval(int countDownInterval) {
         return setCountDownInterval(cpvTotalTime, CircleProgressTime.MILLI_SECOND);
     }
 
     @Override
-    public CircleProgressView setCountDownInterval(int countDownInterval, CircleProgressTime circleProgressTime) {
+    public CircleProgressView1 setCountDownInterval(int countDownInterval, CircleProgressTime circleProgressTime) {
         switch (circleProgressTime) {
             case SECOND:
                 this.countDownInterval = countDownInterval * 1000;
@@ -209,7 +228,7 @@ public class CircleProgressView extends RelativeLayout implements CircleProgress
     }
 
     @Override
-    public CircleProgressView setStartAngle(float cpvStartAngle) {
+    public CircleProgressView1 setStartAngle(float cpvStartAngle) {
         this.cpvStartAngle = cpvStartAngle;
         circleProgress.updateStart(this.cpvStartAngle);
         isSetStartAngle = true;
@@ -217,7 +236,7 @@ public class CircleProgressView extends RelativeLayout implements CircleProgress
     }
 
     @Override
-    public CircleProgressView setSweepAngle(float cpvSweepAngle) {
+    public CircleProgressView1 setSweepAngle(float cpvSweepAngle) {
         this.cpvSweepAngle = cpvSweepAngle;
         circleProgress.updateSweep(this.cpvSweepAngle);
         isSetSweepAngle = true;
@@ -225,7 +244,7 @@ public class CircleProgressView extends RelativeLayout implements CircleProgress
     }
 
     @Override
-    public CircleProgressView cpvStart() {
+    public CircleProgressView1 cpvStart() {
         if (countDownTimer != null) {
             countDownTimer.cancel();
             isRun = false;
@@ -239,7 +258,7 @@ public class CircleProgressView extends RelativeLayout implements CircleProgress
     }
 
     @Override
-    public CircleProgressView cpvPause() {
+    public CircleProgressView1 cpvPause() {
         if (isRun) {
             isRun = false;
             countDownTimer.cancel();
@@ -248,7 +267,7 @@ public class CircleProgressView extends RelativeLayout implements CircleProgress
     }
 
     @Override
-    public CircleProgressView cpvResume() {
+    public CircleProgressView1 cpvResume() {
         if (!isRun) {
             mainTime = (int) (cpvSweepAngle * cpvTotalTime / 360f);
             countDownTime = cpvTotalTime - mainTime;
@@ -260,7 +279,7 @@ public class CircleProgressView extends RelativeLayout implements CircleProgress
     }
 
     @Override
-    public void setOnPlayListener(CircleProgressView.OnPlayListener onPlayListener) {
+    public void setOnPlayListener(CircleProgressView1.OnPlayListener onPlayListener) {
         this.onPlayListener = onPlayListener;
     }
 
@@ -269,4 +288,70 @@ public class CircleProgressView extends RelativeLayout implements CircleProgress
 
         void onFinish();
     }
+
+    @SuppressLint("DrawAllocation,Recycle")
+    private class CircleProgress extends View {
+        private Paint drawPaint;
+        private float cpvSize;
+        private float cpvStartAngle;
+        private float cpvSweepAngle;
+
+        private boolean useCenter;
+        private float painStrokeWidth;
+        private Paint.Cap painCap;
+        private Paint.Style painStyle;
+
+        public CircleProgress(Context context) {
+            this(context, null);
+        }
+
+        public CircleProgress(Context context, final AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        public CircleProgress(Context context, AttributeSet attrs, int defStyleAttr) {
+            super(context, attrs, defStyleAttr);
+        }
+
+        @Override
+        protected void onDraw(Canvas canvas) {
+            super.onDraw(canvas);
+            float pad = painStrokeWidth / 2f;
+            RectF outerOval = new RectF(pad, pad, cpvSize - pad, cpvSize - pad);
+            drawPaint.setStrokeWidth(painStrokeWidth);
+            drawPaint.setStrokeCap(painCap);
+            drawPaint.setStyle(painStyle);
+            canvas.drawArc(outerOval, cpvStartAngle, cpvSweepAngle, useCenter, drawPaint);
+        }
+
+        public void initProgress(float cpvSize, float cpvStartAngle, float cpvSweepAngle, int progressColor,
+                                 boolean useCenter, float painStrokeWidth, Paint.Cap painCap, Paint.Style painStyle) {
+            this.cpvSize = cpvSize;
+            this.cpvStartAngle = cpvStartAngle;
+            this.cpvSweepAngle = cpvSweepAngle;
+            this.useCenter = useCenter;
+            this.painStrokeWidth = painStrokeWidth;
+            this.painCap = painCap;
+            this.painStyle = painStyle;
+
+            try {
+                drawPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+                drawPaint.setColor(progressColor);
+                drawPaint.setAntiAlias(true);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+            }
+        }
+
+        public void updateStart(float cpvStartAngle) {
+            this.cpvStartAngle = cpvStartAngle;
+            invalidate();
+        }
+
+        public void updateSweep(float cpvSweepAngle) {
+            this.cpvSweepAngle = cpvSweepAngle;
+            invalidate();
+        }
+    }
+
 }

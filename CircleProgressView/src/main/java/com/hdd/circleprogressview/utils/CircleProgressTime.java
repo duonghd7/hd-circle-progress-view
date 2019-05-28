@@ -1,4 +1,4 @@
-package com.hdd.circleprogressview;
+package com.hdd.circleprogressview.utils;
 
 /**
  * Created on 1/24/2018.

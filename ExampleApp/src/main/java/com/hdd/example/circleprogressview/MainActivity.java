@@ -1,31 +1,30 @@
 package com.hdd.example.circleprogressview;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.hdd.circleprogressview.CircleProgressTime;
-import com.hdd.circleprogressview.CircleProgressView;
+import com.hdd.circleprogressview.utils.CircleProgressTime;
+import com.hdd.circleprogressview.v2.CircleProgressView2;
 
 public class MainActivity extends AppCompatActivity {
-    private CircleProgressView circleProgress;
+    private CircleProgressView2 circleProgress;
     private TextView tvMomentTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         circleProgress = findViewById(R.id.activity_main_cpv_circle_progress);
-        TextView tvStart = findViewById(R.id.activity_main_tv_start);
-        TextView tvPause = findViewById(R.id.activity_main_tv_pause);
-        TextView tvResume = findViewById(R.id.activity_main_tv_resume);
         tvMomentTime = findViewById(R.id.activity_main_tv_moment_time);
 
         circleProgress.setTotalTime(10, CircleProgressTime.SECOND)
                 .setCountDownInterval(20, CircleProgressTime.MILLI_SECOND)
-                .setOnPlayListener(new CircleProgressView.OnPlayListener() {
+                .setOnPlayListener(new CircleProgressView2.OnPlayListener() {
                     @Override
                     public void onPlay(int momentTime) {
                         int min = momentTime / 60000;
@@ -44,8 +43,25 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        tvStart.setOnClickListener(v -> circleProgress.cpvStart());
-        tvPause.setOnClickListener(v -> circleProgress.cpvPause());
-        tvResume.setOnClickListener(v -> circleProgress.cpvResume());
+        findViewById(R.id.activity_main_tv_start).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                circleProgress.cpvStart();
+            }
+        });
+
+        findViewById(R.id.activity_main_tv_pause).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                circleProgress.cpvPause();
+            }
+        });
+
+        findViewById(R.id.activity_main_tv_resume).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                circleProgress.cpvResume();
+            }
+        });
     }
 }

@@ -5,7 +5,7 @@ android {
     buildToolsVersion rootProject.ext.coreVersion.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.hdd.app.drawcirclebycanvas"
+        applicationId "com.hdd.app.circleprogressview"
         minSdkVersion rootProject.ext.coreVersion.minSdkVersion
         targetSdkVersion rootProject.ext.coreVersion.targetSdkVersion
         versionCode 1

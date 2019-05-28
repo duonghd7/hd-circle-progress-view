@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="CircleProgressView">
-        <attr name="cpvStartAngle"      format="float"/>
-        <attr name="cpvSweepAngle"      format="float"/>
-        <attr name="cpvStrokeWidth"     format="dimension"/>
-        <attr name="cpvMode"            format="enum">
-            <enum name="cpvFill"        value="0"/>
-            <enum name="cpvStrokeButt"  value="1"/>
-            <enum name="cpvStrokeRound" value="2"/>
+        <attr name="cpvStartAngle"              format="float"/>
+        <attr name="cpvSweepAngle"              format="float"/>
+        <attr name="cpvStrokeWidth"             format="dimension"/>
+        <attr name="cpvMode"                    format="enum">
+            <enum name="cpvFill"                value="0"/>
+            <enum name="cpvStrokeButt"          value="1"/>
+            <enum name="cpvStrokeRound"         value="2"/>
         </attr>
-        <attr name="cpvBackground"      format="string"/>
-        <attr name="cpvProgressColor"   format="string"/>
+        <attr name="cpvBackground"              format="string"/>
+        <attr name="cpvProgressColor"           format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="CircleProgressView2">
+        <attr name="cpvStartAngle2"             format="float"/>
+        <attr name="cpvSweepAngle2"             format="float"/>
+        <attr name="cpvStrokeWidth2"            format="dimension"/>
+        <attr name="cpvBorderWidth2"            format="dimension"/>
+        <attr name="cpvBorderMargin2"           format="dimension"/>
+        <attr name="cpvMode2"                   format="enum">
+            <enum name="cpvStrokeButt1"         value="0"/>
+            <enum name="cpvStrokeButt2"         value="1"/>
+            <enum name="cpvStrokeRound"         value="2"/>
+        </attr>
+        <attr name="cpvBackground2"             format="string"/>
+        <attr name="cpvBorderColor2"            format="string"/>
+        <attr name="cpvProgressColor2"          format="string"/>
+        <attr name="cpvProgressSecondColor2"    format="string"/>
     </declare-styleable>
 </resources>
