@@ -23,7 +23,7 @@
     }
 ```
 
-- Step 2. Add the dependency with version `0.6.3`
+- Step 2. Add the dependency with lastest version [![](https://jitpack.io/v/duonghd7/hd-circle-progress-view.svg)](https://jitpack.io/#duonghd7/hd-circle-progress-view)<br>
 ```java
     dependencies {
           ...
