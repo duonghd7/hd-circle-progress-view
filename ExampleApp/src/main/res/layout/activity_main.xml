@@ -15,7 +15,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
         android:layout_weight="1"
-        android:background="#CBFDED"
         android:gravity="center"
         app:cpvBackground2="#FFFFFF"
         app:cpvBorderColor2="#D6D6D6"
