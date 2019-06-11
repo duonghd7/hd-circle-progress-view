@@ -57,7 +57,7 @@ You can set `sweep angle` before process is run with default value is `0f`.
 - CircleProgressView2<br>
 ![all](https://user-images.githubusercontent.com/18477507/59277515-8702e480-8c8a-11e9-9957-638cfd743af9.png)
 <kbd><img width="423" alt="Screen Shot 2019-06-11 at 5 51 04 PM" src="https://user-images.githubusercontent.com/18477507/59266530-059f5800-8c72-11e9-9679-6d966e6cb2aa.png"></kbd>
-
+![review](https://user-images.githubusercontent.com/18477507/59277579-a863d080-8c8a-11e9-8b1d-bbe37eb37da0.png)<br><br>
 ## Functions
 **`.cpvStart()`** <br>
 
