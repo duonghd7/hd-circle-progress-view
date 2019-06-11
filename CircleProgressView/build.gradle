@@ -1,12 +1,37 @@
 apply plugin: 'com.android.library'
 
+buildscript {
+    ext {
+        libVersion = [
+                buildGradle      : "3.4.1",
+                compileSdkVersion: 28,
+                buildToolsVersion: "28.0.3",
+                minSdkVersion    : 19,
+                targetSdkVersion : 28
+        ]
+
+        def props = rootProject.getExtensions().findByName("ext")
+        if (props != null) {
+            props = props.properties
+            if (props.containsKey("rootVersion")) {
+                props = props.getAt("rootVersion")
+                if (props["buildGradle"] != null) libVersion.buildGradle = props["buildGradle"]
+                if (props["compileSdkVersion"] != null) libVersion.compileSdkVersion = props["compileSdkVersion"]
+                if (props["buildToolsVersion"] != null) libVersion.buildToolsVersion = props["buildToolsVersion"]
+                if (props["minSdkVersion"] != null) libVersion.minSdkVersion = props["minSdkVersion"]
+                if (props["targetSdkVersion"] != null) libVersion.targetSdkVersion = props["targetSdkVersion"]
+            }
+        }
+    }
+}
+
 android {
-    compileSdkVersion rootProject.ext.coreVersion.compileSdkVersion
-    buildToolsVersion rootProject.ext.coreVersion.buildToolsVersion
+    compileSdkVersion libVersion.compileSdkVersion
+    buildToolsVersion libVersion.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.coreVersion.minSdkVersion
-        targetSdkVersion rootProject.ext.coreVersion.targetSdkVersion
+        minSdkVersion libVersion.minSdkVersion
+        targetSdkVersion libVersion.targetSdkVersion
         versionCode 6
         versionName "1.0.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -31,6 +56,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }

@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion rootProject.ext.coreVersion.compileSdkVersion
-    buildToolsVersion rootProject.ext.coreVersion.buildToolsVersion
+    compileSdkVersion rootProject.ext.rootVersion.compileSdkVersion
+    buildToolsVersion rootProject.ext.rootVersion.buildToolsVersion
 
     defaultConfig {
         applicationId "com.hdd.app.circleprogressview"
-        minSdkVersion rootProject.ext.coreVersion.minSdkVersion
-        targetSdkVersion rootProject.ext.coreVersion.targetSdkVersion
+        minSdkVersion rootProject.ext.rootVersion.minSdkVersion
+        targetSdkVersion rootProject.ext.rootVersion.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -34,6 +34,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
