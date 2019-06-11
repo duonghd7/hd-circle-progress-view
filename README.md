@@ -31,8 +31,7 @@
     }
 ```
 
-## Options
-- CircleProgressView1<br>
+## Options CircleProgressView1
 ![image](https://user-images.githubusercontent.com/18477507/36661723-b2b7c67a-1b0e-11e8-80f7-b234a278b80b.png)
 <kbd><img width="444" alt="Screen Shot 2019-06-11 at 5 50 26 PM" src="https://user-images.githubusercontent.com/18477507/59266297-84e05c00-8c71-11e9-93ed-e498478cc217.png"></kbd>
 ![image](https://user-images.githubusercontent.com/18477507/36662428-fa710588-1b10-11e8-8616-c2e5ac094015.png)<br><br>
@@ -54,7 +53,7 @@ You can set `start angle` before process is run with default value is `-90f`.
 
 You can set `sweep angle` before process is run with default value is `0f`.
 
-- CircleProgressView2<br>
+## Options CircleProgressView2
 ![all](https://user-images.githubusercontent.com/18477507/59277515-8702e480-8c8a-11e9-9957-638cfd743af9.png)
 <kbd><img width="423" alt="Screen Shot 2019-06-11 at 5 51 04 PM" src="https://user-images.githubusercontent.com/18477507/59266530-059f5800-8c72-11e9-9679-6d966e6cb2aa.png"></kbd>
 ![review](https://user-images.githubusercontent.com/18477507/59277579-a863d080-8c8a-11e9-8b1d-bbe37eb37da0.png)<br><br>
@@ -79,7 +78,7 @@ You will receive execution time after each countdown interval.
 ```java
 circleProgress.setTotalTime(10, CircleProgressTime.SECOND)
                 .setCountDownInterval(20, CircleProgressTime.MILLI_SECOND)
-                .setOnPlayListener(new CircleProgressView.OnPlayListener() {
+                .setOnPlayListener(new CircleProgressView1.OnPlayListener() {
                     @Override
                     public void onPlay(int momentTime) {
                         int min = momentTime / 60000;
@@ -97,6 +96,38 @@ circleProgress.setTotalTime(10, CircleProgressTime.SECOND)
                         Toast.makeText(MainActivity.this, "Done!", Toast.LENGTH_SHORT).show();
                     }
                 });
+                
+circleProgress.cpvStart();
+```
+
+```java
+circleProgress.setTotalTime(10, CircleProgressTime.SECOND)
+                .setCountDownInterval(20, CircleProgressTime.MILLI_SECOND)
+                .setMode(CircleProgressView2.CircleProgressMode.STROKE_BUTT_2)
+                .setOnPlayListener(new CircleProgressView2.OnPlayListener() {
+                    @Override
+                    public void onPlay(int momentTime) {
+                        int min = momentTime / 60000;
+                        int second = (momentTime / 1000) % 60;
+                        int milliSecond = (momentTime % 1000) / 10;
+                        String time = String.format("%s:%s:%s"
+                                , min < 10 ? String.format("0%s", min) : min
+                                , second < 10 ? String.format("0%s", second) : second
+                                , milliSecond < 10 ? String.format("0%s", milliSecond) : milliSecond);
+                        tvMomentTime.setText(time);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        circleProgress.setTotalTime(10, CircleProgressTime.SECOND)
+                                .setCountDownInterval(20, CircleProgressTime.MILLI_SECOND)
+                                .setMode(i % 2 == 0 ? CircleProgressView2.CircleProgressMode.STROKE_BUTT_1 : CircleProgressView2.CircleProgressMode.STROKE_BUTT_2);
+                        i++;
+                        circleProgress.cpvStart();
+                    }
+                });
+                
+circleProgress.cpvStart();
 ```
     
 # MIT License
